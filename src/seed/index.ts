@@ -1,5 +1,5 @@
 /**
- * Seeds the site with Basera Venture's homes, photographs and starter copy.
+ * Seeds the site with Basera Ventures' homes, photographs and starter copy.
  *
  *   npm run seed              — only runs on an empty database
  *   SEED_FORCE=1 npm run seed — wipes content (not users or inquiries) and seeds again
@@ -624,7 +624,7 @@ const run = async () => {
     slug: 'settings',
     context,
     data: {
-      brandName: 'Basera Venture',
+      brandName: 'Basera Ventures',
       propertyType: 'Luxury homestays',
       usp: 'luxury homestays, corporate stays and aesthetic shoot locations',
       tagline: 'Luxury homestays, comfortable corporate stays and aesthetic shoot locations in Jaipur.',
@@ -638,13 +638,13 @@ const run = async () => {
         houseRules: [{ rule: 'A government-approved ID is needed before check-in.' }, { rule: '[QUIET HOURS]' }, { rule: '[SMOKING POLICY]' }],
       },
       booking: {
-        whatsappMessage: 'Hello Basera Venture! I would like to ask about a stay in Jaipur.',
+        whatsappMessage: 'Hello Basera Ventures! I would like to ask about a stay in Jaipur.',
         channels: [{ platform: 'airbnb', url: profileUrl }],
       },
       seo: {
         shareImage: media['eclipse-moon'],
         defaultDescription:
-          'Basera Venture: luxury homestays, corporate stays and shoot locations in Jaipur — four studios with Wi-Fi, workspaces and kitchenettes, three with a pool, gym and in-house restaurant.',
+          'Basera Ventures: luxury homestays, corporate stays and shoot locations in Jaipur — four studios with Wi-Fi, workspaces and kitchenettes, three with a pool, gym and in-house restaurant.',
       },
     },
   })
@@ -780,7 +780,7 @@ const run = async () => {
         buttonLabel: 'Check Availability',
       },
       seo: {
-        title: 'Basera Venture — luxury homestays in Jaipur with a pool',
+        title: 'Basera Ventures — luxury homestays in Jaipur with a pool',
         description:
           'Four studios in Jaipur for couples, families, corporate stays and shoots — workspaces, Wi-Fi and kitchenettes; three with a pool, gym and in-house restaurant.',
       },
@@ -800,7 +800,7 @@ const run = async () => {
       people: {
         heading: 'The people behind {brand}',
         text:
-          'Basera Venture is run by Love Kumar, with co-hosts Prakhar, Gaurav and Suyash. In Love’s words: “My entrepreneurial journey began on the ground in the food industry, spending years building multiple restaurants across different cities to master hospitality & operations. Today, I’ve blended my academic background & field experience to create ‘Basera Venture’—offering premium, aesthetic stays.”\n\nOn Airbnb, Love is a Superhost with a 100% response rate who usually replies within an hour.',
+          'Basera Ventures is run by Love Kumar, with co-hosts Prakhar, Gaurav and Suyash. In Love’s words: “My entrepreneurial journey began on the ground in the food industry, spending years building multiple restaurants across different cities to master hospitality & operations. Today, I’ve blended my academic background & field experience to create ‘Basera Venture’—offering premium, aesthetic stays.”\n\nOn Airbnb, Love is a Superhost with a 100% response rate who usually replies within an hour.',
         members: [
           {
             name: 'Love Kumar',
@@ -837,7 +837,7 @@ const run = async () => {
         ],
       },
       seo: {
-        title: 'Our story — the people behind Basera Venture, Jaipur',
+        title: 'Our story — the people behind Basera Ventures, Jaipur',
         description: 'Basera means a place to settle. Meet the hosts behind four Jaipur homes, and the ideas behind their design.',
       },
     },
@@ -866,8 +866,8 @@ const run = async () => {
         text: 'Tell us when you would like to come — we will take care of the rest of the details.',
       },
       seo: {
-        title: 'A day at Basera Venture, Jaipur — from first light to lamplight',
-        description: 'Chai in a lamplit studio, the pool at noon, mosaic lamps in the evening and a moon on the wall: a day at Basera Venture in Jaipur, hour by hour.',
+        title: 'A day at Basera Ventures, Jaipur — from first light to lamplight',
+        description: 'Chai in a lamplit studio, the pool at noon, mosaic lamps in the evening and a moon on the wall: a day at Basera Ventures in Jaipur, hour by hour.',
       },
     },
   })
@@ -919,7 +919,7 @@ const run = async () => {
       },
       seo: {
         title: 'Jaipur travel guide — getting here, best time to visit & nearby',
-        description: 'Plan a trip to Jaipur: arriving by air, rail and road, the best months to visit, and the forts and bazaars nearby — from the hosts of Basera Venture.',
+        description: 'Plan a trip to Jaipur: arriving by air, rail and road, the best months to visit, and the forts and bazaars nearby — from the hosts of Basera Ventures.',
       },
     },
   })
@@ -933,7 +933,7 @@ const run = async () => {
         heading: 'Four homes, *four moods*',
         intro: 'Amber and sage at Laxom, crisp whites at Khushom and Lovom, moonlit dark at Eclipse — each with a workspace, high-speed Wi-Fi, a kitchenette and free parking.',
         seo: {
-          title: 'Jaipur homestays — compare our four studios | Basera Venture',
+          title: 'Jaipur homestays — compare our four studios | Basera Ventures',
           description: 'Compare Laxom, Khushom, Lovom and Eclipse: guests, beds, amenities and ratings — then check availability with the hosts or book on Airbnb.',
         },
       },
@@ -943,8 +943,8 @@ const run = async () => {
         intro: 'Swim, work, shoot, eat in — or head into the Pink City. Here is what is on offer at {brand} and around {location}.',
         image: media.pool,
         seo: {
-          title: 'Experiences at Basera Venture — pool, dining & Jaipur days out',
-          description: 'A pool, an in-house restaurant, a moon on the wall and the forts and bazaars of Jaipur nearby — things to do when you stay with Basera Venture.',
+          title: 'Experiences at Basera Ventures — pool, dining & Jaipur days out',
+          description: 'A pool, an in-house restaurant, a moon on the wall and the forts and bazaars of Jaipur nearby — things to do when you stay with Basera Ventures.',
         },
       },
       gallery: {
@@ -954,7 +954,7 @@ const run = async () => {
         postcardsHeading: 'Postcards *from here*',
         postcardsIntro: 'Scenes we love, and moments guests have shared with us. Have one of your own? Send it our way — with your name, if you would like the credit.',
         seo: {
-          title: 'Photo gallery — Basera Venture homestays, Jaipur',
+          title: 'Photo gallery — Basera Ventures homestays, Jaipur',
           description: 'See Laxom, Khushom, Lovom and Eclipse, the pool and the in-house restaurant before you book your stay in Jaipur.',
         },
       },
@@ -963,7 +963,7 @@ const run = async () => {
         heading: 'Notes *from here*',
         intro: 'Guides, seasons and stories from {location} — the things we tell guests when they ask, written down.',
         seo: {
-          title: 'Journal — Jaipur guides & stories | Basera Venture',
+          title: 'Journal — Jaipur guides & stories | Basera Ventures',
           description: 'Practical guides and stories from Jaipur — getting here, seasons, where to go — and a closer look at our homes.',
         },
       },
@@ -972,8 +972,8 @@ const run = async () => {
         heading: 'Good *questions*',
         intro: 'Everything guests usually ask before they book. Can’t find yours? Call us — a person will answer.',
         seo: {
-          title: 'FAQs — booking, check-in & policies | Basera Venture Jaipur',
-          description: 'Check-in, parking, Wi-Fi, pool, food, pets and corporate or shoot bookings — answers about staying with Basera Venture in Jaipur.',
+          title: 'FAQs — booking, check-in & policies | Basera Ventures Jaipur',
+          description: 'Check-in, parking, Wi-Fi, pool, food, pets and corporate or shoot bookings — answers about staying with Basera Ventures in Jaipur.',
         },
       },
       contact: {
@@ -986,8 +986,8 @@ const run = async () => {
           { title: 'You confirm', text: '{payment}' },
         ],
         seo: {
-          title: 'Contact & book — Basera Venture homestays, Jaipur',
-          description: 'Check availability and rates for Basera Venture’s homes in Jaipur. Send your dates or call +91 92511 42426 — the hosts reply personally.',
+          title: 'Contact & book — Basera Ventures homestays, Jaipur',
+          description: 'Check availability and rates for Basera Ventures’ homes in Jaipur. Send your dates or call +91 92511 42426 — the hosts reply personally.',
         },
       },
       privacy: {
@@ -1007,7 +1007,7 @@ const run = async () => {
           'You can ask us at any time to show, correct or delete what we hold about you — write to baseraventure@gmail.com.',
           '[LEGAL REVIEW — have this notice checked under India’s Digital Personal Data Protection Act, 2023, and the GDPR if you host guests from the EU.]',
         ),
-        seo: { title: 'Privacy notice — Basera Venture' },
+        seo: { title: 'Privacy notice — Basera Ventures' },
       },
     },
   })

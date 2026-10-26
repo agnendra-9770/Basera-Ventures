@@ -21,7 +21,7 @@ The goal is qualified direct bookings from people searching for a place to stay 
 /sitemap.xml  /robots.txt
 ```
 
-## Basera Venture: what to target (Jaipur)
+## Basera Ventures: what to target (Jaipur)
 
 Every query below matches something true and shown on the site. Don't chase terms the homes can't satisfy.
 
