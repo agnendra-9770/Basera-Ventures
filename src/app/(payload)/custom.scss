@@ -1,0 +1,13 @@
+/* Small touches so the editing studio feels like part of the brand. */
+:root {
+  --font-serif: Georgia, "Times New Roman", serif;
+}
+
+.dashboard__label,
+.collection-list__header h1,
+.doc-header__title,
+.render-title {
+  font-family: var(--font-serif);
+  font-weight: 400;
+  letter-spacing: 0.01em;
+}
