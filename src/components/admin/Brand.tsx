@@ -1,6 +1,9 @@
 import type { Payload } from 'payload'
 import React from 'react'
 
+import { BrandLockup, BrandSymbol } from '@/components/brand/BrandLogo'
+import { logoSpelling } from '@/lib/brand'
+
 const ArchMark = ({ size = 28 }: { size?: number }) => (
   <svg width={size} height={size * 1.25} viewBox="0 0 40 50" fill="none" aria-hidden="true">
     <path
@@ -21,6 +24,14 @@ export async function Logo({ payload }: { payload?: Payload }) {
   } catch {
     // Database not ready yet (first run) — fall back to the generic name.
   }
+  const spelling = logoSpelling(name)
+  if (spelling) {
+    return (
+      <div role="img" aria-label={name}>
+        <BrandLockup spelling={spelling} style={{ height: 64, width: 'auto', maxWidth: '100%' }} />
+      </div>
+    )
+  }
   return (
     <div style={{ display: 'flex', alignItems: 'center', gap: 14 }}>
       <ArchMark size={30} />
@@ -30,5 +41,5 @@ export async function Logo({ payload }: { payload?: Payload }) {
 }
 
 export function Icon() {
-  return <ArchMark size={20} />
+  return <BrandSymbol style={{ height: 22, width: 'auto' }} />
 }

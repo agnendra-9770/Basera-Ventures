@@ -8,11 +8,21 @@ The brand promise the site makes: **a place built around the hours you actually 
 
 Tone of voice: specific, warm, unhurried, first-person-plural ("we"). Short sentences. Verbs over adjectives. No "nestled", "luxurious", "unforgettable". Never claim what you cannot show.
 
+## Logo
+
+The symbol is a geometric **B drawn as a Jaipur façade**. The stem is a pillar, the upper counter a jharokha window, and the lower counter an arched doorway with its light on (gold). Both openings are cut in the site's own arch. *Basera* means a dwelling, a place to rest. The mark says home and welcome without drawing a house, and still reads as a B at favicon size.
+
+The wordmark sets **BASERA** in Fraunces (optical size 60, weight 460, crisp serifs) over **VENTURES** in Instrument Sans (weight 540, widely tracked). Colours are deep charcoal `#2A2622`, muted gold `#A88A57` (`--gold`) and warm ivory `#F7F2EA`. In one colour the doorway is left open.
+
+- **Files:** `public/brand/logo/` (SVG + PNG, every lockup and colourway, both spellings). The presentation sheet with usage rules is `brand/logo-sheet.html` / `.png`.
+- **On the site:** header, footer, menu and CMS draw it from `src/components/brand` (`BrandLockup`, `BrandSymbol`). The spelling follows **Site settings → Brand name**: "Basera Ventures" or "Basera Venture". Favicon, Apple and app icons are built in too.
+- **Changing it:** edit the numbers in `brand/source/build_logo.py` and run it (see `brand/README.md`). Never edit the generated files by hand.
+
 ## Motif: the arch and the lamp
 
-The brand mark is the dining-room arch with a lit lamp inside it. It appears as:
+The site's recurring shape is the dining-room arch with a lit lamp inside it. The logo's doorway is cut in the same arch. It appears as:
 
-- the logo mark (`ArchMark`) and favicon;
+- the logo's window and doorway, and `ArchMark` (placeholders, and the wordmark if the brand name is changed to something other than Basera);
 - the **arch crop** on hero portraits, stay cards and story photographs (`.arch`, from `public/brand/arch-mask.svg`);
 - the centre of the destination compass ("home").
 
@@ -29,6 +39,7 @@ The **jaali** pattern (`public/brand/jaali-*.svg`) — a four-point lattice draw
 | `--sage` / `--sage-deep` / `--sage-wash` | `#8B977B` / `#4F5A45` / `#E4E7DB` | velvet headboard, sofa | WhatsApp, ticks, calm sections |
 | `--terracotta` / `--terracotta-deep` | `#B25F3E` / `#8F4529` | clay pots, lamp glow | the single "action" colour: hover states, pins, placeholders |
 | `--bronze` / `--bronze-deep` | `#A07B4B` / `#74572F` | brass lamps, lamp chains | eyebrows, rules, icons |
+| `--gold` | `#A88A57` | lamplight in a doorway | the logo's lit door; VENTURES on dark grounds |
 | `--charcoal` / `--ink` | `#2A2622` / `#1B1815` | black joinery frames | text, buttons, footer, night |
 | `--mosaic` | `#2E6A86` | the lamps and the pool | used once: the preview bar |
 

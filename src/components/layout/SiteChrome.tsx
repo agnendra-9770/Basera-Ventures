@@ -1,11 +1,13 @@
 import Link from 'next/link'
 
+import { logoSpelling } from '@/lib/brand'
 import type { Site } from '@/lib/data'
 import { fillEngineUrl, telHref, whatsappHref } from '@/lib/format'
 import { asMedia } from '@/lib/media'
 import { real } from '@/lib/placeholders'
 import { plain, Tx } from '@/lib/text'
 
+import { BrandLockup } from '../brand/BrandLogo'
 import { Img } from '../media/Img'
 import { ArchMark } from '../ui/ArchMark'
 import { Icon } from '../ui/Icon'
@@ -52,6 +54,14 @@ export function Wordmark({ site, size = 'md' }: { site: Site; size?: 'md' | 'lg'
         {logoDark && (
           <Img media={logoDark} intrinsic sizes="240px" className="wordmark__img wordmark__img--dark" alt={plain(site.brand)} />
         )}
+      </span>
+    )
+  }
+  const spelling = logoSpelling(plain(site.brand))
+  if (spelling) {
+    return (
+      <span className={`wordmark wordmark--${size}`}>
+        <BrandLockup spelling={spelling} className="wordmark__logo" />
       </span>
     )
   }

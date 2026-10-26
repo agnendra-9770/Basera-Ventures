@@ -1877,7 +1877,7 @@ export interface Setting {
    */
   tagline?: string | null;
   /**
-   * Optional. Without a logo, the name is set as an elegant wordmark.
+   * Optional. The Basera logo is built in and follows the brand name above (Basera Ventures or Basera Venture). Upload a file only to replace it.
    */
   logo?: (number | null) | Media;
   logoOnDark?: (number | null) | Media;

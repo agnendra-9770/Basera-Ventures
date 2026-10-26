@@ -55,7 +55,10 @@ export const Settings: GlobalConfig = {
                   name: 'logo',
                   type: 'upload',
                   relationTo: 'media',
-                  admin: { description: 'Optional. Without a logo, the name is set as an elegant wordmark.' },
+                  admin: {
+                    description:
+                      'Optional. The Basera logo is built in and follows the brand name above (Basera Ventures or Basera Venture). Upload a file only to replace it.',
+                  },
                 },
                 { name: 'logoOnDark', type: 'upload', relationTo: 'media', label: 'Logo for dark backgrounds' },
               ],

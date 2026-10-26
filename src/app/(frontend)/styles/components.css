@@ -494,6 +494,15 @@ body:has([data-overlay-header]) .site-header:not(.is-scrolled) .site-nav__book .
   font-size: clamp(2rem, 3.6vw, 3.1rem);
 }
 
+.wordmark__logo {
+  height: 2.75rem;
+  width: auto;
+}
+
+.wordmark--lg .wordmark__logo {
+  height: 4.5rem;
+}
+
 .wordmark--image .wordmark__img {
   width: auto;
   height: 2.6rem;
@@ -555,6 +564,10 @@ body:has([data-overlay-header]) .site-header:not(.is-scrolled) .wordmark--image:
 
   .wordmark__name {
     font-size: 1.35rem;
+  }
+
+  .wordmark__logo {
+    height: 2.35rem;
   }
 }
 
@@ -783,6 +796,7 @@ html.menu-open {
 }
 
 .footer__wordmark {
+  --logo-sub: var(--gold);
   color: var(--ivory);
   text-decoration: none;
 }

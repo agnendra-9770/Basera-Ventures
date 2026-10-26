@@ -50,7 +50,8 @@ src/
   app/(payload)/           The CMS admin and REST API (generated boilerplate — do not edit)
   components/              UI: layout, booking, media, home sections, stays, gallery, destination, contact, admin
   lib/                     Data access, SEO/metadata, structured data, placeholders & tokens, formatting
-public/brand/              Arch mask and jaali pattern SVGs
+public/brand/              Arch mask and jaali pattern SVGs; logo/ (the logo kit) and icons/
+brand/                     Logo presentation sheet, kit guide and the script that builds every logo file
 media/                     Uploaded files (created on first upload; back this up with data/site.db)
 docs/                      Brand, SEO, launch and editing guides
 ```

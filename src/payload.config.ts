@@ -83,6 +83,7 @@ export default buildConfig({
     meta: {
       titleSuffix: ' · Studio',
       description: 'Edit the website — stays, photographs, stories and settings.',
+      icons: [{ rel: 'icon', type: 'image/svg+xml', url: '/brand/icons/favicon.svg' }],
     },
     components: {
       graphics: {

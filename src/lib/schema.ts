@@ -6,6 +6,7 @@
  */
 import type { Amenity, Faq, Journal, Media, Stay } from '@/payload-types'
 
+import { LOGO_ICON, logoSpelling } from './brand'
 import type { Site } from './data'
 import { toIsoTime } from './format'
 import { absoluteMediaUrl, asMedia, asMediaList, isVideo } from './media'
@@ -98,7 +99,7 @@ export function lodgingSchema(site: Site, stays: Stay[] = [], images: Media[] = 
     url: `${site.url}/`,
     description: real(plain(s.seo?.defaultDescription)),
     image: imageUrls(site, images, 8),
-    logo: logo ? absoluteMediaUrl(logo, site.url) : undefined,
+    logo: logo ? absoluteMediaUrl(logo, site.url) : logoSpelling(plain(site.brand)) ? `${site.url}${LOGO_ICON}` : undefined,
     telephone: real(s.contact?.phone),
     email: real(s.contact?.email),
     address: postalAddress(site),
