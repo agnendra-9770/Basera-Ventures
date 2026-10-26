@@ -15,13 +15,15 @@
     "migrate:create": "cross-env NODE_OPTIONS=--no-deprecation payload migrate:create",
     "seed": "cross-env NODE_OPTIONS=--no-deprecation PAYLOAD_DIRECT_DB=1 payload run src/seed/index.ts",
     "setup": "npm run migrate && npm run seed",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "media:upload": "cross-env NODE_OPTIONS=--no-deprecation PAYLOAD_DIRECT_DB=1 payload run src/seed/media-to-database.ts"
   },
   "dependencies": {
     "@payloadcms/db-postgres": "3.91.0",
     "@payloadcms/db-sqlite": "3.91.0",
     "@payloadcms/email-nodemailer": "3.91.0",
     "@payloadcms/next": "3.91.0",
+    "@payloadcms/plugin-cloud-storage": "3.91.0",
     "@payloadcms/richtext-lexical": "3.91.0",
     "@payloadcms/ui": "3.91.0",
     "cross-env": "^7.0.3",

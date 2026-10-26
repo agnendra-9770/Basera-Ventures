@@ -33,6 +33,7 @@ Everything shown in `[SQUARE BRACKETS]` on the site is a placeholder waiting for
 | `npm run setup` | `migrate` + `seed` — first-time database setup |
 | `npm run seed` | Seeds starter content (skips if content exists; `SEED_FORCE=1 npm run seed` wipes content, not users, and seeds again) |
 | `npm run migrate` | Applies database migrations (also runs automatically in production on start) |
+| `npm run media:upload` | Postgres only: copies photos from `media/` on this computer into the database, so the live site can serve them |
 | `npm run migrate:create <name>` | After changing a collection/global in `src/collections` or `src/globals`, creates the migration for it |
 | `npm run generate:types` | Regenerates `src/payload-types.ts` after schema changes |
 | `npm run typecheck` | TypeScript check |
@@ -81,7 +82,9 @@ Then `npm run setup` once (creates the tables, then loads the starter content an
 3. Point the domain at the server over HTTPS; the app sends security headers (HSTS, nosniff, referrer policy, frame options).
 4. Back up the database (`data/site.db`, or Supabase's backups) and `media/` regularly — together they are the entire site.
 
-Uploads are stored in `media/` on the server's disk. Serverless hosts (Vercel, Netlify) don't keep files, so there you also need object storage for uploads — a Payload storage adapter (S3 — Supabase Storage speaks S3 — R2 or Vercel Blob) added to `src/payload.config.ts`.
+**Photos and uploads.** With Postgres, uploaded files are stored in the database itself (table `media_files`, see `src/lib/database-storage.ts`), so Vercel and other hosts without a lasting disk serve them, and uploads made in the live CMS persist. Media created on this computer before that existed can be copied in with `npm run media:upload` (safe to repeat). With SQLite, files stay in `media/` on disk. On Vercel, one upload can be at most about 4.5 MB, so resize very large camera originals first.
+
+**Site address.** Set `NEXT_PUBLIC_SERVER_URL` to the real domain (e.g. `https://basera…`) once you have one. On Vercel, if it is missing or still `localhost`, the project's production domain is used automatically for canonical links, the sitemap and share previews.
 
 ## Design & content principles
 

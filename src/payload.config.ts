@@ -1,6 +1,7 @@
 import { postgresAdapter } from '@payloadcms/db-postgres'
 import { sqliteAdapter } from '@payloadcms/db-sqlite'
 import { nodemailerAdapter } from '@payloadcms/email-nodemailer'
+import { cloudStoragePlugin } from '@payloadcms/plugin-cloud-storage'
 import { lexicalEditor } from '@payloadcms/richtext-lexical'
 import path from 'path'
 import { buildConfig } from 'payload'
@@ -23,6 +24,8 @@ import { Home } from './globals/Home'
 import { Pages } from './globals/Pages'
 import { Settings } from './globals/Settings'
 import { Story } from './globals/Story'
+import { databaseStorage } from './lib/database-storage'
+import { serverUrl } from './lib/preview'
 import { migrations as postgresMigrations } from './migrations/postgres'
 import { migrations as sqliteMigrations } from './migrations/sqlite'
 
@@ -33,9 +36,12 @@ const dirname = path.dirname(fileURLToPath(import.meta.url))
  * Schema changes always go through migrations (src/migrations/<database>), so a fresh
  * production database sets itself up on first start.
  */
+const databaseUrl = process.env.DATABASE_URL || 'file:./data/site.db'
+const usesPostgres = /^postgres(ql)?:\/\//.test(databaseUrl)
+
 const database = () => {
-  const url = process.env.DATABASE_URL || 'file:./data/site.db'
-  if (!/^postgres(ql)?:\/\//.test(url)) {
+  const url = databaseUrl
+  if (!usesPostgres) {
     return sqliteAdapter({
       client: { url, authToken: process.env.DATABASE_AUTH_TOKEN || undefined },
       push: false,
@@ -77,7 +83,7 @@ const email = process.env.SMTP_HOST
   : undefined
 
 export default buildConfig({
-  serverURL: process.env.NEXT_PUBLIC_SERVER_URL || '',
+  serverURL: serverUrl(),
   admin: {
     user: Users.slug,
     importMap: { baseDir: path.resolve(dirname) },
@@ -101,6 +107,9 @@ export default buildConfig({
   secret: process.env.PAYLOAD_SECRET || '',
   typescript: { outputFile: path.resolve(dirname, 'payload-types.ts') },
   db: database(),
+  // With Postgres, uploaded files live in the database too (see lib/database-storage), so
+  // the site works on hosts without a lasting disk. With SQLite they stay in media/.
+  plugins: [cloudStoragePlugin({ enabled: usesPostgres, collections: { media: { adapter: databaseStorage() } } })],
   email,
   sharp,
   graphQL: { disable: true },

@@ -364,6 +364,7 @@ export interface Media {
    */
   poster?: (number | null) | Media;
   blurDataUrl?: string | null;
+  _objectKey?: string | null;
   updatedAt: string;
   createdAt: string;
   url?: string | null;
@@ -1096,6 +1097,7 @@ export interface MediaSelect<T extends boolean = true> {
   credit?: T;
   poster?: T;
   blurDataUrl?: T;
+  _objectKey?: T;
   updatedAt?: T;
   createdAt?: T;
   url?: T;
