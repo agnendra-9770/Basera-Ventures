@@ -54,7 +54,9 @@ const database = () => {
   const ca = process.env.DATABASE_CA_CERT?.replace(/\\n/g, '\n')
   const ssl = sslmode === 'disable' || (local && !sslmode) ? false : ca ? { ca } : { rejectUnauthorized: false }
   return postgresAdapter({
-    pool: { connectionString: target.toString(), ssl },
+    // Keep-alive and a short idle time stop the pooler's idle cut-offs surfacing as
+    // "Connection terminated unexpectedly"; a connect timeout fails fast instead of hanging.
+    pool: { connectionString: target.toString(), ssl, keepAlive: true, idleTimeoutMillis: 20_000, connectionTimeoutMillis: 20_000 },
     push: false,
     migrationDir: path.resolve(dirname, 'migrations/postgres'),
     prodMigrations: postgresMigrations,
