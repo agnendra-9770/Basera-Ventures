@@ -1,3 +1,4 @@
+import { postgresAdapter } from '@payloadcms/db-postgres'
 import { sqliteAdapter } from '@payloadcms/db-sqlite'
 import { nodemailerAdapter } from '@payloadcms/email-nodemailer'
 import { lexicalEditor } from '@payloadcms/richtext-lexical'
@@ -22,9 +23,43 @@ import { Home } from './globals/Home'
 import { Pages } from './globals/Pages'
 import { Settings } from './globals/Settings'
 import { Story } from './globals/Story'
-import { migrations } from './migrations'
+import { migrations as postgresMigrations } from './migrations/postgres'
+import { migrations as sqliteMigrations } from './migrations/sqlite'
 
 const dirname = path.dirname(fileURLToPath(import.meta.url))
+
+/**
+ * DATABASE_URL decides the database: postgres://… (e.g. Supabase) or a SQLite / Turso URL.
+ * Schema changes always go through migrations (src/migrations/<database>), so a fresh
+ * production database sets itself up on first start.
+ */
+const database = () => {
+  const url = process.env.DATABASE_URL || 'file:./data/site.db'
+  if (!/^postgres(ql)?:\/\//.test(url)) {
+    return sqliteAdapter({
+      client: { url, authToken: process.env.DATABASE_AUTH_TOKEN || undefined },
+      push: false,
+      migrationDir: path.resolve(dirname, 'migrations/sqlite'),
+      prodMigrations: sqliteMigrations,
+    })
+  }
+  // Scripts (migrate, seed) set PAYLOAD_DIRECT_DB so they use the session connection
+  // (Supabase's DIRECT_URL) rather than the transaction pooler the site runs on.
+  const target = new URL(process.env.PAYLOAD_DIRECT_DB && process.env.DIRECT_URL ? process.env.DIRECT_URL : url)
+  const sslmode = target.searchParams.get('sslmode')
+  // Prisma-only flags; node-postgres would misread them.
+  for (const flag of ['pgbouncer', 'sslmode', 'connection_limit']) target.searchParams.delete(flag)
+  const local = ['localhost', '127.0.0.1', '::1'].includes(target.hostname)
+  // Encrypted by default. Supabase signs with its own CA: paste it into DATABASE_CA_CERT to verify it too.
+  const ca = process.env.DATABASE_CA_CERT?.replace(/\\n/g, '\n')
+  const ssl = sslmode === 'disable' || (local && !sslmode) ? false : ca ? { ca } : { rejectUnauthorized: false }
+  return postgresAdapter({
+    pool: { connectionString: target.toString(), ssl },
+    push: false,
+    migrationDir: path.resolve(dirname, 'migrations/postgres'),
+    prodMigrations: postgresMigrations,
+  })
+}
 
 const email = process.env.SMTP_HOST
   ? nodemailerAdapter({
@@ -62,17 +97,7 @@ export default buildConfig({
   editor: lexicalEditor(),
   secret: process.env.PAYLOAD_SECRET || '',
   typescript: { outputFile: path.resolve(dirname, 'payload-types.ts') },
-  db: sqliteAdapter({
-    client: {
-      url: process.env.DATABASE_URL || 'file:./data/site.db',
-      authToken: process.env.DATABASE_AUTH_TOKEN || undefined,
-    },
-    // Schema changes always go through migrations (src/migrations), so a fresh
-    // production database sets itself up on first start.
-    push: false,
-    migrationDir: path.resolve(dirname, 'migrations'),
-    prodMigrations: migrations,
-  }),
+  db: database(),
   email,
   sharp,
   graphQL: { disable: true },
