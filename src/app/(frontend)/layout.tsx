@@ -4,7 +4,7 @@ import { draftMode } from 'next/headers'
 import type { ReactNode } from 'react'
 
 import { Analytics, PreviewBar, RevealObserver, revealBootScript } from '@/components/layout/Client'
-import { MobileBar, SetupBadge, SiteFooter, SiteHeader } from '@/components/layout/SiteChrome'
+import { MobileBar, SiteFooter, SiteHeader } from '@/components/layout/SiteChrome'
 import { getSite } from '@/lib/data'
 import { real } from '@/lib/placeholders'
 import { plain } from '@/lib/text'
@@ -68,7 +68,6 @@ export default async function FrontendLayout({ children }: { children: ReactNode
         <SiteFooter site={site} />
         <MobileBar site={site} />
         <RevealObserver />
-        {!site.isLive && <SetupBadge />}
         {previewing && <PreviewBar />}
         {ga4 && <Analytics id={ga4} />}
       </body>

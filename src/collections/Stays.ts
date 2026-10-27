@@ -225,7 +225,75 @@ export const Stays: CollectionConfig = {
               ],
             },
             { name: 'priceNote', type: 'text', admin: { description: 'e.g. "Taxes extra · weekend rates vary".' } },
-            { name: 'minNights', type: 'number', min: 1, label: 'Minimum nights' },
+            {
+              type: 'row',
+              fields: [
+                { name: 'minNights', type: 'number', min: 1, label: 'Minimum nights' },
+                {
+                  name: 'maxNights',
+                  type: 'number',
+                  min: 1,
+                  label: 'Maximum nights',
+                  admin: { description: 'Optional. Longer stays are asked to get in touch.' },
+                },
+              ],
+            },
+            {
+              name: 'availability',
+              type: 'group',
+              label: 'Availability calendar',
+              admin: {
+                description:
+                  'Keeps the website calendar in step with your bookings: booked nights are greyed out, so guests only pick dates you can host. Only signed-in editors can see these links and notes.',
+              },
+              // The links contain a private token, so they never leave the server.
+              access: { read: ({ req }) => Boolean(req.user) },
+              fields: [
+                {
+                  name: 'calendars',
+                  type: 'array',
+                  label: 'Calendar links (iCal)',
+                  admin: {
+                    description:
+                      'Airbnb: Listings → this listing → Availability → Connect calendars → Export calendar → copy the link and paste it here. Booking.com, Vrbo and Google Calendar offer the same kind of link. Re-checked every 15 minutes.',
+                  },
+                  fields: [
+                    {
+                      type: 'row',
+                      fields: [
+                        { name: 'platform', type: 'select', required: true, defaultValue: 'airbnb', options: BOOKING_PLATFORMS },
+                        {
+                          name: 'url',
+                          type: 'text',
+                          required: true,
+                          validate: (value: string | null | undefined) =>
+                            !value || /^https:\/\/\S+$/.test(value.trim()) || 'Paste the full https:// calendar link.',
+                        },
+                      ],
+                    },
+                  ],
+                },
+                {
+                  name: 'blocked',
+                  type: 'array',
+                  label: 'Dates you block yourself',
+                  admin: {
+                    description:
+                      'Bookings taken by phone or WhatsApp, maintenance, family visits. From the first night to the last night you can’t host.',
+                  },
+                  fields: [
+                    {
+                      type: 'row',
+                      fields: [
+                        { name: 'from', type: 'date', required: true, label: 'First night', admin: { date: { pickerAppearance: 'dayOnly' } } },
+                        { name: 'to', type: 'date', required: true, label: 'Last night', admin: { date: { pickerAppearance: 'dayOnly' } } },
+                        { name: 'note', type: 'text', admin: { description: 'Only you see this.' } },
+                      ],
+                    },
+                  ],
+                },
+              ],
+            },
             {
               name: 'rating',
               type: 'group',

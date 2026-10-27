@@ -31,9 +31,18 @@ export function BookCta({
   )
 }
 
+/** The stays as the booking widgets need them: name, capacity and Airbnb listing. */
+export const stayOptions = (site: Site): StayOption[] =>
+  site.stays.map((s) => ({
+    slug: s.slug ?? '',
+    name: plain(s.name),
+    maxGuests: s.maxGuests ?? null,
+    airbnb: s.bookingLinks?.find((link) => link.platform === 'airbnb' && link.url.startsWith('https://'))?.url ?? null,
+  }))
+
 /** Everything the booking widget needs, derived from Site settings. */
 export const bookingProps = (site: Site) => {
-  const stays: StayOption[] = site.stays.map((s) => ({ slug: s.slug ?? '', name: plain(s.name) }))
+  const stays = stayOptions(site)
   const intro = plain(site.settings.booking?.whatsappMessage || `Hello! I would like to ask about staying at ${site.brand}`).replace(
     /[.!\s]+$/,
     '',

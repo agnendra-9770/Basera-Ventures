@@ -270,6 +270,39 @@ export interface Stay {
   priceNote?: string | null;
   minNights?: number | null;
   /**
+   * Optional. Longer stays are asked to get in touch.
+   */
+  maxNights?: number | null;
+  /**
+   * Keeps the website calendar in step with your bookings: booked nights are greyed out, so guests only pick dates you can host. Only signed-in editors can see these links and notes.
+   */
+  availability?: {
+    /**
+     * Airbnb: Listings → this listing → Availability → Connect calendars → Export calendar → copy the link and paste it here. Booking.com, Vrbo and Google Calendar offer the same kind of link. Re-checked every 15 minutes.
+     */
+    calendars?:
+      | {
+          platform: 'airbnb' | 'booking' | 'agoda' | 'makemytrip' | 'goibibo' | 'vrbo' | 'direct' | 'other';
+          url: string;
+          id?: string | null;
+        }[]
+      | null;
+    /**
+     * Bookings taken by phone or WhatsApp, maintenance, family visits. From the first night to the last night you can’t host.
+     */
+    blocked?:
+      | {
+          from: string;
+          to: string;
+          /**
+           * Only you see this.
+           */
+          note?: string | null;
+          id?: string | null;
+        }[]
+      | null;
+  };
+  /**
    * Copy it exactly from the platform (e.g. Airbnb) and update the date when you check it. Shown with a link to the listing; never added to Google markup as your own rating.
    */
   rating?: {
@@ -897,6 +930,26 @@ export interface StaysSelect<T extends boolean = true> {
   ratesCheckedOn?: T;
   priceNote?: T;
   minNights?: T;
+  maxNights?: T;
+  availability?:
+    | T
+    | {
+        calendars?:
+          | T
+          | {
+              platform?: T;
+              url?: T;
+              id?: T;
+            };
+        blocked?:
+          | T
+          | {
+              from?: T;
+              to?: T;
+              note?: T;
+              id?: T;
+            };
+      };
   rating?:
     | T
     | {

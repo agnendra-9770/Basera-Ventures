@@ -14,7 +14,8 @@ import { Frame, Img } from '../media/Img'
 import { formatScore, RatingLine } from '../stays/Rating'
 import { StayCard } from '../stays/StayCard'
 import { Icon } from '../ui/Icon'
-import { Cta, SectionHead, SetupNote } from '../ui/Primitives'
+import { Cta, SectionHead } from '../ui/Primitives'
+import { SetupNote } from '../ui/SetupNote'
 
 const ROMAN = ['i', 'ii', 'iii', 'iv', 'v', 'vi', 'vii', 'viii', 'ix', 'x']
 

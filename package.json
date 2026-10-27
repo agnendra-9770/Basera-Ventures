@@ -16,7 +16,8 @@
     "seed": "cross-env NODE_OPTIONS=--no-deprecation PAYLOAD_DIRECT_DB=1 payload run src/seed/index.ts",
     "setup": "npm run migrate && npm run seed",
     "typecheck": "tsc --noEmit",
-    "media:upload": "cross-env NODE_OPTIONS=--no-deprecation PAYLOAD_DIRECT_DB=1 payload run src/seed/media-to-database.ts"
+    "media:upload": "cross-env NODE_OPTIONS=--no-deprecation PAYLOAD_DIRECT_DB=1 payload run src/seed/media-to-database.ts",
+    "admin:create": "cross-env NODE_OPTIONS=--no-deprecation PAYLOAD_DIRECT_DB=1 payload run src/seed/create-admin.ts"
   },
   "dependencies": {
     "@payloadcms/db-postgres": "3.91.0",

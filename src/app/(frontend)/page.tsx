@@ -89,6 +89,7 @@ export default async function HomePage() {
         </div>
       </div>
 
+      <StaysBand stays={stays} site={site} />
       <StorySection story={home.story} />
       <FindYourMoment
         eyebrow={home.moments?.eyebrow}
@@ -98,7 +99,6 @@ export default async function HomePage() {
         bookExternal={target.external ? target.href : null}
       />
       <SignatureSection signature={home.signature} experiences={signature} />
-      <StaysBand stays={stays} site={site} />
       <DayTeaser day={home.day} moments={day.moments ?? []} />
       <CollageSection collage={home.collage} images={collageImages.length >= 3 ? collageImages : gallery} />
       <GuestStories stories={home.stories} reviews={reviews} site={site} stays={stays} />

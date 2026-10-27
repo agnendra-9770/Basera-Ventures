@@ -1,9 +1,13 @@
 'use client'
 
-import { useActionState, useId } from 'react'
+import { useActionState, useEffect, useId, useState } from 'react'
 
 import { type InquiryState, sendInquiry } from '@/app/(frontend)/contact/actions'
+import { isDay, localToday } from '@/lib/dates'
 
+import { calendarFor, useAvailability } from '../booking/availability'
+import { DatesField } from '../booking/DatesField'
+import type { Range } from '../booking/DateRangePicker'
 import { Icon } from '../ui/Icon'
 
 const initialInquiryState: InquiryState = { ok: false, errors: {}, values: {} }
@@ -21,6 +25,13 @@ export function InquiryForm({ stays, defaults, responseTime, whatsappHref }: Pro
   const v = (key: string) => state.values[key] ?? defaults[key] ?? ''
   const err = (key: string) => state.errors[key]
   const describe = (key: string) => (err(key) ? `${id}-${key}-error` : undefined)
+  const day = (key: string) => (isDay(v(key)) ? v(key) : null)
+
+  const [range, setRange] = useState<Range>(() => ({ start: day('checkIn'), end: day('checkOut') }))
+  const [stay, setStay] = useState(() => (stays.length === 1 ? stays[0].slug : v('stay')))
+  const [today, setToday] = useState('')
+  const { data, loading } = useAvailability()
+  useEffect(() => setToday(localToday()), [])
 
   if (state.ok) {
     const prefers = { email: 'by email', phone: 'by phone', whatsapp: 'on WhatsApp' }[state.values.preferredContact] ?? 'by email'
@@ -55,15 +66,34 @@ export function InquiryForm({ stays, defaults, responseTime, whatsappHref }: Pro
         <legend>
           <span>01</span>Your dates
         </legend>
-        <div className="field">
-          <label htmlFor={`${id}-checkIn`}>Arrival</label>
-          <input id={`${id}-checkIn`} className="input" type="date" name="checkIn" defaultValue={v('checkIn')} aria-invalid={Boolean(err('checkIn'))} aria-describedby={describe('checkIn')} />
-          {err('checkIn') && <p className="field__error" id={`${id}-checkIn-error`}>{err('checkIn')}</p>}
-        </div>
-        <div className="field">
-          <label htmlFor={`${id}-checkOut`}>Departure</label>
-          <input id={`${id}-checkOut`} className="input" type="date" name="checkOut" defaultValue={v('checkOut')} aria-invalid={Boolean(err('checkOut'))} aria-describedby={describe('checkOut')} />
-          {err('checkOut') && <p className="field__error" id={`${id}-checkOut-error`}>{err('checkOut')}</p>}
+        {stays.length > 1 && (
+          <div className="field field--full">
+            <label htmlFor={`${id}-stay`}>Which stay?</label>
+            <select id={`${id}-stay`} className="input" name="stay" value={stay} onChange={(e) => setStay(e.target.value)}>
+              <option value="">Not sure yet — help me choose</option>
+              {stays.map((s) => (
+                <option key={s.slug} value={s.slug}>
+                  {s.name}
+                </option>
+              ))}
+            </select>
+          </div>
+        )}
+        {stays.length === 1 && <input type="hidden" name="stay" value={stays[0].slug} />}
+        <div className="field field--full">
+          <DatesField
+            value={range}
+            onChange={setRange}
+            calendar={calendarFor(data, stay || null)}
+            loading={loading || !today}
+            today={today}
+            idPrefix={id}
+            variant="form"
+            stayName={stays.find((s) => s.slug === stay)?.name}
+            errors={{ start: err('checkIn'), end: err('checkOut') }}
+          />
+          <input type="hidden" name="checkIn" value={range.start ?? ''} />
+          <input type="hidden" name="checkOut" value={range.end ?? ''} />
         </div>
         <div className="field">
           <label htmlFor={`${id}-adults`}>Adults</label>
@@ -77,20 +107,6 @@ export function InquiryForm({ stays, defaults, responseTime, whatsappHref }: Pro
           <input id={`${id}-children`} className="input" type="number" name="children" min={0} max={20} inputMode="numeric" defaultValue={v('children') || '0'} aria-invalid={Boolean(err('children'))} aria-describedby={describe('children')} />
           {err('children') && <p className="field__error" id={`${id}-children-error`}>{err('children')}</p>}
         </div>
-        {stays.length > 1 && (
-          <div className="field field--full">
-            <label htmlFor={`${id}-stay`}>Which stay?</label>
-            <select id={`${id}-stay`} className="input" name="stay" defaultValue={v('stay')}>
-              <option value="">Not sure yet — help me choose</option>
-              {stays.map((s) => (
-                <option key={s.slug} value={s.slug}>
-                  {s.name}
-                </option>
-              ))}
-            </select>
-          </div>
-        )}
-        {stays.length === 1 && <input type="hidden" name="stay" value={stays[0].slug} />}
       </fieldset>
 
       <fieldset className="form__group">

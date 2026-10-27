@@ -104,28 +104,6 @@ export function SectionHead({
  * Shown only in setup mode (before launch) where a section has nothing real
  * to show yet. Once the site is live, empty sections simply disappear.
  */
-export function SetupNote({
-  title,
-  children,
-  href,
-  action = 'Open the CMS',
-}: {
-  title: string
-  children?: ReactNode
-  href: string
-  action?: string
-}) {
-  return (
-    <aside className="setup-note">
-      <p className="setup-note__badge">Setup guide · visible until launch</p>
-      <p className="setup-note__title">{title}</p>
-      {children && <div className="setup-note__body">{children}</div>}
-      <a className="setup-note__link" href={href}>
-        {action} <Icon name="arrow-up-right" size={14} />
-      </a>
-    </aside>
-  )
-}
 
 export function JsonLd({ data }: { data: unknown }) {
   const items = (Array.isArray(data) ? data : [data]).filter(Boolean)

@@ -90,11 +90,6 @@ export default async function ContactPage({ searchParams }: Args) {
                     </a>
                   </li>
                 )}
-                {!wa && !real(s.contact?.phone) && !real(s.contact?.email) && (
-                  <li>
-                    <Tx>[PHONE] · [EMAIL] · [WHATSAPP]</Tx>
-                  </li>
-                )}
               </ul>
               <p className="text-soft" style={{ fontSize: '0.92rem' }}>
                 {s.contact?.hours && (
@@ -151,7 +146,7 @@ export default async function ContactPage({ searchParams }: Args) {
                     </span>
                   ))
                 ) : (
-                  <Tx>{`[STREET ADDRESS] · ${s.location}`}</Tx>
+                  <Tx>{s.location}</Tx>
                 )}
               </address>
               {mapOk && (

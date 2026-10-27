@@ -27,6 +27,16 @@ With one stay, the site hides the listing page and sends "Explore the stay" stra
 
 **Amenities** are a shared library (Stays → Amenities). Add each once; tick *Shared facility* for things every guest can use (pool, dining room) — these appear on every stay automatically.
 
+### Availability calendar
+
+Every stay has **Rates & booking → Availability calendar**. Booked nights are struck through in the website's calendar, so guests can only pick dates you can host.
+
+- **Calendar links (iCal):** in Airbnb go to *Listings → the listing → Availability → Connect calendars → Export calendar*, copy the link and paste it here (Booking.com, Vrbo and Google Calendar have the same kind of link). The site re-reads them every 15 minutes. These links are private: only signed-in editors can see them.
+- **Dates you block yourself:** phone or WhatsApp bookings, maintenance, family visits — from the first night to the last night you can't host.
+- **Minimum / maximum nights** apply to the calendar too.
+
+Until a home has a calendar link, the site doesn't claim it is free: guests see "we'll confirm availability" instead. When a stay has an Airbnb listing link, the booking bar also offers **Book these dates on Airbnb** with the dates and guests filled in.
+
 ## Homepage, Our story, A day here, Other pages
 
 Each is edited section by section under **Website**. Every section has an eyebrow, heading and intro; most have photos. **Find your moment** items should be only the kinds of trip you genuinely cater for, each with a suggested stay. **Signature experiences** picks from your Experiences (or shows the ones marked "Feature on the homepage").

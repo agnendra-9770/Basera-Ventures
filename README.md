@@ -20,9 +20,9 @@ npm run setup               # creates the database and seeds it with the starter
 npm run dev                 # http://localhost:3000  ·  CMS at http://localhost:3000/admin
 ```
 
-The first visit to `/admin` asks you to create your account. The dashboard then shows **Launch readiness** — what is still a placeholder and where to fix it.
+Create your admin login on your own computer with `npm run admin:create` (the website never lets visitors sign up — `/admin` only ever shows sign-in), then sign in at `/admin`. The dashboard shows **Launch readiness** — what is still a placeholder and where to fix it.
 
-Everything shown in `[SQUARE BRACKETS]` on the site is a placeholder waiting for a real value. Search engines are asked to stay away until you tick **Site settings → Search & launch → The site is live**.
+Text in `[SQUARE BRACKETS]` is a placeholder waiting for a real value. Visitors never see placeholders or setup notes — any sentence or list item that still holds one is simply left out — but you see them in the CMS **Preview**. Search engines are asked to stay away until you tick **Site settings → Search & launch → The site is live**.
 
 ## Commands
 
@@ -33,6 +33,7 @@ Everything shown in `[SQUARE BRACKETS]` on the site is a placeholder waiting for
 | `npm run setup` | `migrate` + `seed` — first-time database setup |
 | `npm run seed` | Seeds starter content (skips if content exists; `SEED_FORCE=1 npm run seed` wipes content, not users, and seeds again) |
 | `npm run migrate` | Applies database migrations (also runs automatically in production on start) |
+| `npm run admin:create` | Creates your admin login, or sets a new password for an existing one (asks for email and password) |
 | `npm run media:upload` | Postgres only: copies photos from `media/` on this computer into the database, so the live site can serve them |
 | `npm run migrate:create <name>` | After changing a collection/global in `src/collections` or `src/globals`, creates the migration for it |
 | `npm run generate:types` | Regenerates `src/payload-types.ts` after schema changes |
@@ -61,7 +62,7 @@ Adding a new field is a three-step routine: edit the collection or global → `n
 
 ## Environment variables
 
-See `.env.example`. `SITE_URL` must be the public address of the site (used for canonical links, the sitemap and share cards). `SMTP_*` enables inquiry email notifications; without it inquiries are still saved in the CMS and the host sees a count on the dashboard.
+See `.env.example`. `SITE_URL` must be the public address of the site (used for canonical links, the sitemap and share cards). `SMTP_*` enables inquiry email notifications; without it inquiries are still saved in the CMS and the host sees a count on the dashboard. For a Hostinger mailbox: `SMTP_HOST=smtp.hostinger.com`, `SMTP_PORT=465`, `SMTP_USER` and `EMAIL_FROM_ADDRESS` = the mailbox address, `SMTP_PASS` = its password, `INQUIRY_NOTIFY_EMAIL` = where inquiries should arrive. On Vercel, add the same variables in Settings → Environment Variables.
 
 ## Deploying
 

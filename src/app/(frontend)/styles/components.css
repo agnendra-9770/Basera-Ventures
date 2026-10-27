@@ -290,39 +290,6 @@ a:hover .frame img,
   color: var(--text);
 }
 
-.setup-badge {
-  position: fixed;
-  left: 1rem;
-  bottom: 1rem;
-  z-index: 60;
-  display: inline-flex;
-  align-items: center;
-  gap: 0.6rem;
-  padding: 0.6rem 0.95rem;
-  border-radius: 999px;
-  background: rgba(27, 24, 21, 0.88);
-  backdrop-filter: blur(8px);
-  color: var(--ivory);
-  font-size: 0.7rem;
-  letter-spacing: 0.04em;
-  text-decoration: none;
-  box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.4);
-}
-
-.setup-badge__dot {
-  width: 0.5rem;
-  height: 0.5rem;
-  border-radius: 50%;
-  background: #e8a27f;
-  box-shadow: 0 0 0 4px rgba(232, 162, 127, 0.25);
-}
-
-@media (max-width: 760px) {
-  .setup-badge {
-    display: none;
-  }
-}
-
 .preview-bar {
   position: fixed;
   top: 0;
@@ -1225,9 +1192,462 @@ html.menu-open {
     border-right: 0;
   }
 
+  .booking--dock .booking__fields > .booking__field {
+    border-right: 1px solid var(--line);
+  }
+
+  .booking--dock .booking__fields > .booking__field:last-child {
+    border-right: 0;
+  }
+
+  .booking--dock .booking__fields > .booking__field--guests:last-child {
+    grid-column: 1 / -1;
+  }
+
   .booking--dock .booking__submit .btn {
     width: 100%;
   }
+}
+
+/* --------------------------------------------------------------------------
+   Dates: check-in / check-out boxes and the calendar panel
+   -------------------------------------------------------------------------- */
+
+.dates--bar {
+  display: contents;
+}
+
+.booking__field.is-active {
+  background: var(--linen);
+}
+
+.booking__toggle.is-empty,
+.dates__value.is-empty {
+  color: var(--text-faint);
+}
+
+.dates--form {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  border: 1px solid var(--line-strong);
+  border-radius: 0.75rem;
+}
+
+.dates__box {
+  display: grid;
+  gap: 0.2rem;
+  padding: 0.75rem 1rem;
+  border-radius: 0.75rem;
+}
+
+.dates__box + .dates__box {
+  border-left: 1px solid var(--line-strong);
+  border-radius: 0 0.75rem 0.75rem 0;
+}
+
+.dates__box.is-active {
+  box-shadow: inset 0 0 0 2px var(--charcoal);
+}
+
+.dates__box.is-invalid {
+  box-shadow: inset 0 0 0 1px var(--terracotta-deep);
+}
+
+.dates__label {
+  font-size: 0.64rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--bronze-deep);
+}
+
+.dates__value {
+  padding: 0;
+  border: 0;
+  background: none;
+  text-align: left;
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  color: var(--text);
+  cursor: pointer;
+}
+
+.dates__value:focus-visible {
+  outline: 2px solid var(--charcoal);
+  outline-offset: 4px;
+}
+
+.dates__panel {
+  position: absolute;
+  top: calc(100% + 0.6rem);
+  left: 0;
+  z-index: 40;
+  width: max-content;
+  max-width: calc(100vw - 2rem);
+  padding: 1.75rem 2rem 1.25rem;
+  background: var(--surface);
+  color: var(--text);
+  border: 1px solid var(--line);
+  border-radius: 1.25rem;
+  box-shadow: var(--shadow-float);
+}
+
+.booking--card .dates__panel {
+  left: auto;
+  right: 0;
+}
+
+.dates__head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1.25rem;
+}
+
+.dates__title {
+  font-family: var(--font-display);
+  font-size: 1.45rem;
+  font-weight: 400;
+  line-height: 1.2;
+}
+
+.dates__sub {
+  margin-top: 0.2rem;
+  font-size: 0.88rem;
+  color: var(--text-soft);
+}
+
+.dates__close {
+  display: grid;
+  place-items: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  margin: -0.4rem -0.6rem 0 0;
+  border: 0;
+  border-radius: 50%;
+  background: none;
+  color: inherit;
+}
+
+.dates__loading {
+  display: grid;
+  place-items: center;
+  min-height: 18rem;
+  color: var(--text-soft);
+}
+
+.dates__foot {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem 1.5rem;
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--line);
+}
+
+.dates__status {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.85rem;
+  color: var(--text-soft);
+}
+
+.dates__status.is-free {
+  color: var(--sage-deep);
+  font-weight: 500;
+}
+
+.dates__actions {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  margin-left: auto;
+}
+
+.dates__clear {
+  padding: 0;
+  border: 0;
+  background: none;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--text);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  cursor: pointer;
+}
+
+.dates__clear:disabled {
+  color: var(--text-faint);
+  cursor: default;
+}
+
+/* Phones: a full-screen sheet with a scrolling column of months */
+.dates__panel.is-sheet {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  display: flex;
+  flex-direction: column;
+  width: auto;
+  max-width: none;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+}
+
+.dates__panel.is-sheet .dates__head {
+  margin: 0;
+  padding: 1.1rem 1.25rem 0.9rem;
+  border-bottom: 1px solid var(--line);
+}
+
+.dates__panel.is-sheet .calendar {
+  flex: 1;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding: 0 1rem;
+}
+
+.dates__panel.is-sheet .dates__foot {
+  margin: 0;
+  padding: 0.9rem 1.25rem calc(0.9rem + env(safe-area-inset-bottom));
+  background: var(--surface);
+}
+
+html.sheet-open {
+  overflow: hidden;
+}
+
+/* The calendar itself */
+.calendar {
+  --cell: 2.6rem;
+  position: relative;
+}
+
+.calendar__nav {
+  position: absolute;
+  inset: -0.35rem 0 auto;
+  display: flex;
+  justify-content: space-between;
+  pointer-events: none;
+}
+
+.calendar__arrow {
+  display: grid;
+  place-items: center;
+  width: 2.25rem;
+  height: 2.25rem;
+  border: 0;
+  border-radius: 50%;
+  background: none;
+  color: var(--text);
+  pointer-events: auto;
+  transition: background-color 0.2s;
+}
+
+.calendar__arrow:hover:not(:disabled) {
+  background: var(--linen);
+}
+
+.calendar__arrow:disabled {
+  opacity: 0.25;
+  cursor: default;
+}
+
+.calendar__months {
+  display: flex;
+  gap: 2.5rem;
+}
+
+.calendar--column .calendar__months {
+  flex-direction: column;
+  gap: 1.75rem;
+  padding: 1rem 0 1.5rem;
+}
+
+.calendar__title {
+  margin-bottom: 0.9rem;
+  text-align: center;
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+  font-weight: 500;
+}
+
+.calendar--column .calendar__title {
+  text-align: left;
+}
+
+.calendar__grid {
+  border-collapse: separate;
+  border-spacing: 0 2px;
+  table-layout: fixed;
+}
+
+.calendar--column .calendar__grid {
+  width: 100%;
+}
+
+.calendar__grid th {
+  width: var(--cell);
+  height: 1.9rem;
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: var(--text-faint);
+}
+
+.calendar__cell {
+  height: var(--cell);
+  padding: 0;
+  text-align: center;
+}
+
+.calendar__cell.is-range {
+  background: var(--linen);
+}
+
+.calendar__cell.is-range-start {
+  background: linear-gradient(to right, transparent 50%, var(--linen) 50%);
+}
+
+.calendar__cell.is-range-end {
+  background: linear-gradient(to left, transparent 50%, var(--linen) 50%);
+}
+
+.calendar__day {
+  position: relative;
+  display: inline-grid;
+  place-items: center;
+  width: var(--cell);
+  height: var(--cell);
+  padding: 0;
+  border: 1.5px solid transparent;
+  border-radius: 50%;
+  background: none;
+  font-family: var(--font-sans);
+  font-size: 0.92rem;
+  font-weight: 500;
+  color: var(--text);
+  cursor: pointer;
+  transition:
+    border-color 0.15s,
+    background-color 0.15s;
+}
+
+.calendar--column .calendar__day {
+  width: min(var(--cell), 100%);
+}
+
+.calendar__day:hover:not(.is-disabled):not(.is-selected) {
+  border-color: var(--charcoal);
+}
+
+.calendar__day:focus-visible {
+  outline: 2px solid var(--charcoal);
+  outline-offset: 2px;
+}
+
+.calendar__day.is-today::after {
+  content: '';
+  position: absolute;
+  bottom: 0.32rem;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: currentColor;
+}
+
+.calendar__day.is-disabled {
+  color: var(--text-faint);
+  opacity: 0.55;
+  cursor: default;
+}
+
+.calendar__day.is-booked {
+  text-decoration: line-through;
+  opacity: 0.45;
+}
+
+.calendar__day.is-checkout-only {
+  color: var(--text-faint);
+}
+
+.calendar__day.is-preview {
+  border-color: var(--charcoal);
+}
+
+.calendar__day.is-selected {
+  background: var(--charcoal);
+  border-color: var(--charcoal);
+  color: var(--ivory);
+  opacity: 1;
+}
+
+/* What the chosen dates mean, under the booking bar */
+.booking__result {
+  grid-column: 1 / -1;
+  padding: 0.8rem 1.5rem;
+  border-top: 1px solid var(--line);
+  font-size: 0.9rem;
+  color: var(--text-soft);
+}
+
+.booking__result p {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.45rem 1.25rem;
+}
+
+.booking__result .is-free,
+.booking__group.is-free {
+  color: var(--sage-deep);
+}
+
+.booking__result .is-booked {
+  color: var(--terracotta-deep);
+}
+
+.booking__group {
+  display: inline-flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.booking__chip {
+  padding: 0.3rem 0.8rem;
+  border: 1px solid var(--line-strong);
+  border-radius: 999px;
+  background: var(--surface);
+  font-size: 0.82rem;
+  color: var(--text);
+  cursor: pointer;
+  transition:
+    background-color 0.2s,
+    color 0.2s;
+}
+
+.booking__chip:hover {
+  background: var(--charcoal);
+  color: var(--ivory);
+}
+
+.booking__airbnb {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-weight: 500;
+  color: var(--text);
+}
+
+.booking__note {
+  font-size: 0.82rem;
+  color: var(--text-soft);
 }
 
 /* ==========================================================================

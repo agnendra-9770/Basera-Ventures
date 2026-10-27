@@ -5,7 +5,7 @@ import { cache } from 'react'
 
 import type { Setting, Stay } from '@/payload-types'
 
-import { interpolateDeep, type Tokens } from './placeholders'
+import { forVisitors, interpolateDeep, type Tokens } from './placeholders'
 import { serverUrl } from './preview'
 
 export const getPayloadClient = () => getPayload({ config })
@@ -20,7 +20,7 @@ export const isDraftMode = async () => {
   }
 }
 
-export type StayLink = Pick<Stay, 'id' | 'name' | 'slug' | 'stayType'>
+export type StayLink = Pick<Stay, 'id' | 'name' | 'slug' | 'stayType' | 'maxGuests' | 'bookingLinks'>
 
 export type Site = {
   settings: Setting
@@ -62,13 +62,13 @@ export const getSite = cache(async (): Promise<Site> => {
     sort: '_order',
     draft,
     overrideAccess: draft,
-    select: { name: true, slug: true, stayType: true },
+    select: { name: true, slug: true, stayType: true, maxGuests: true, bookingLinks: true },
   })
 
   const digits = raw.contact?.whatsapp?.replace(/\D/g, '') ?? ''
 
   return {
-    settings: interpolateDeep(raw, tokens),
+    settings: draft ? interpolateDeep(raw, tokens) : forVisitors(interpolateDeep(raw, tokens)),
     tokens,
     brand: raw.brandName,
     url: serverUrl(),
@@ -78,7 +78,11 @@ export const getSite = cache(async (): Promise<Site> => {
   }
 })
 
-const withTokens = async <T>(doc: T): Promise<T> => interpolateDeep(doc, (await getSite()).tokens)
+/** Fills {tokens}; for visitors (not CMS preview) also leaves out anything still a [PLACEHOLDER]. */
+const withTokens = async <T>(doc: T): Promise<T> => {
+  const filled = interpolateDeep(doc, (await getSite()).tokens)
+  return (await isDraftMode()) ? filled : forVisitors(filled)
+}
 
 export const getHome = cache(async () => withTokens(await (await getPayloadClient()).findGlobal({ slug: 'home', depth: 2 })))
 export const getStoryPage = cache(async () =>
@@ -167,7 +171,8 @@ export const getFaqs = cache(async () => {
     sort: '_order',
     overrideAccess: false,
   })
-  return withTokens(result.docs)
+  // An answer that was only a placeholder leaves nothing to show.
+  return (await withTokens(result.docs)).filter((faq) => faq.answer?.trim())
 })
 
 /** Only reviews marked as verified are ever returned to the public site. */

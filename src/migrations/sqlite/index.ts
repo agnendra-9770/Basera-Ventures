@@ -1,5 +1,6 @@
 import * as migration_20261026_142506_initial from './20261026_142506_initial';
 import * as migration_20261026_152904_stay_location_and_ratings from './20261026_152904_stay_location_and_ratings';
+import * as migration_20261027_132021_stay_availability from './20261027_132021_stay_availability';
 
 export const migrations = [
   {
@@ -10,6 +11,11 @@ export const migrations = [
   {
     up: migration_20261026_152904_stay_location_and_ratings.up,
     down: migration_20261026_152904_stay_location_and_ratings.down,
-    name: '20261026_152904_stay_location_and_ratings'
+    name: '20261026_152904_stay_location_and_ratings',
+  },
+  {
+    up: migration_20261027_132021_stay_availability.up,
+    down: migration_20261027_132021_stay_availability.down,
+    name: '20261027_132021_stay_availability'
   },
 ];

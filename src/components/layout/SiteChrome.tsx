@@ -189,17 +189,13 @@ export function SiteFooter({ site }: { site: Site }) {
                   <Tx>{line}</Tx>
                 </span>
               ))
-            ) : !site.isLive ? (
-              <span>
-                <Tx>{`[STREET ADDRESS] · ${s.location}`}</Tx>
-              </span>
             ) : (
               <span>
                 <Tx>{s.location}</Tx>
               </span>
             )}
           </address>
-          {links.length > 0 ? (
+          {links.length > 0 && (
             <ul className="footer__links">
               {links.map((link) => (
                 <li key={link.href}>
@@ -210,12 +206,6 @@ export function SiteFooter({ site }: { site: Site }) {
                 </li>
               ))}
             </ul>
-          ) : (
-            !site.isLive && (
-              <p>
-                <Tx>[PHONE] · [EMAIL] · [WHATSAPP]</Tx>
-              </p>
-            )
           )}
           {social.length > 0 && (
             <ul className="footer__social">
@@ -258,11 +248,3 @@ export function MobileBar({ site }: { site: Site }) {
   return <MobileBookBar book={bookingTarget(site)} whatsapp={whatsappLink(site)} />
 }
 
-export function SetupBadge() {
-  return (
-    <a className="setup-badge" href="/admin">
-      <span className="setup-badge__dot" aria-hidden="true" />
-      Setup mode — text in [brackets] is a placeholder
-    </a>
-  )
-}
