@@ -43,7 +43,7 @@ The CMS dashboard (`/admin`) shows **Launch readiness** with the same essentials
 
 ## 6. Technical
 
-- [ ] `.env`: `NEXT_PUBLIC_SERVER_URL=https://your-domain`, fresh `PAYLOAD_SECRET`, `NODE_ENV=production`
+- [ ] `.env`: `SITE_URL=https://your-domain`, fresh `PAYLOAD_SECRET`, `NODE_ENV=production`
 - [ ] SMTP set up and a test inquiry received by email (or decide you'll work from the CMS inbox)
 - [ ] HTTPS working; `npm run build` passes; migrations applied
 - [ ] Backups scheduled for the database (`data/site.db`, or Supabase → Database → Backups) and `media/`

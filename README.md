@@ -61,7 +61,7 @@ Adding a new field is a three-step routine: edit the collection or global → `n
 
 ## Environment variables
 
-See `.env.example`. `NEXT_PUBLIC_SERVER_URL` must be the public address of the site (used for canonical links, the sitemap and share cards). `SMTP_*` enables inquiry email notifications; without it inquiries are still saved in the CMS and the host sees a count on the dashboard.
+See `.env.example`. `SITE_URL` must be the public address of the site (used for canonical links, the sitemap and share cards). `SMTP_*` enables inquiry email notifications; without it inquiries are still saved in the CMS and the host sees a count on the dashboard.
 
 ## Deploying
 
@@ -77,14 +77,14 @@ Then `npm run setup` once (creates the tables, then loads the starter content an
 
 **With SQLite** — leave `DATABASE_URL=file:./data/site.db` on a Node host with a persistent disk (a small VPS, Railway, Render, Fly.io, Coolify…).
 
-1. Set the environment variables (`NEXT_PUBLIC_SERVER_URL=https://your-domain`, a fresh `PAYLOAD_SECRET`, `NODE_ENV=production`).
+1. Set the environment variables (`SITE_URL=https://your-domain`, a fresh `PAYLOAD_SECRET`, `NODE_ENV=production`).
 2. `npm ci && npm run build`, then `npm start`.
 3. Point the domain at the server over HTTPS; the app sends security headers (HSTS, nosniff, referrer policy, frame options).
 4. Back up the database (`data/site.db`, or Supabase's backups) and `media/` regularly — together they are the entire site.
 
 **Photos and uploads.** With Postgres, uploaded files are stored in the database itself (table `media_files`, see `src/lib/database-storage.ts`), so Vercel and other hosts without a lasting disk serve them, and uploads made in the live CMS persist. Media created on this computer before that existed can be copied in with `npm run media:upload` (safe to repeat). With SQLite, files stay in `media/` on disk. On Vercel, one upload can be at most about 4.5 MB, so resize very large camera originals first.
 
-**Site address.** Set `NEXT_PUBLIC_SERVER_URL` to the real domain (e.g. `https://basera…`) once you have one. On Vercel, if it is missing or still `localhost`, the project's production domain is used automatically for canonical links, the sitemap and share previews.
+**Site address.** Set `SITE_URL` (server-only, so hosts like Vercel can keep it private) to the real domain (e.g. `https://basera…`) once you have one. On Vercel, if it is missing or still `localhost`, the project's production domain is used automatically for canonical links, the sitemap and share previews.
 
 ## Design & content principles
 
